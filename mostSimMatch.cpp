@@ -11,12 +11,15 @@ using namespace std;
 string MATCHDATA = "../matchData.txt";
 
 bool readMatchData(list<string> * p_matchData);
-bool mostSimMatch(string iStr, string oStr);
+bool mostSimMatch(string &iStr, string &oStr);
 
 
 int main()
 {
-	mostSimMatch("a", "b");
+	string iStr("45G1");
+	string oStr;
+	mostSimMatch(iStr, oStr);
+	cout << oStr;
 	system("pause");
 
 	return 0;
@@ -62,16 +65,26 @@ bool mostSimMatch(string &iStr, string &oStr)
 		}
 	}
 
-	int index0 = string::npos, index1 = string::npos, index2 = string::npos, index3 = string::npos;
+	//int index0 = string::npos, index1 = string::npos, index2 = string::npos, index3 = string::npos;
 	for (auto dataIterator = matchData.begin(); dataIterator != matchData.end(); ++dataIterator)
 	{
 		string temp = *dataIterator;
-		if ()
+		std::regex reg(temp.replace(2, 1, "[a-zA-Z]"));
+cout << temp << endl;
+		std::smatch matchResult;
+		if (std::regex_search((string::const_iterator)iStr.begin(), (string::const_iterator)iStr.end(), matchResult, reg))
 		{
-
+			if (matchResult[2].str() == "6")
+			{
+				oStr = matchResult.str().replace(2, 1, "G");
+			}
+			else
+			{
+				oStr = matchResult.str().replace(2, 1, "U");
+			}
+			return true;
 		}
 	}
 			
-
 	return true;
 }
